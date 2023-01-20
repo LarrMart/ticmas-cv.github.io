@@ -172,6 +172,10 @@ function setPersonalData(url) {
     xhr.send();
 }
 
+function recargar() {
+    location.reload();
+}
+
 function setResume() {
     setPersonalData("https://randomuser.me/api/");
     document.getElementById("presentation").children[1].innerText = getFillerParagraph();
@@ -180,7 +184,9 @@ function setResume() {
     setExperience(document.getElementById("jobs"), 2023, true);
 }
 
-setResume(true);
+setResume();
+document.getElementById("button").addEventListener("click", recargar);
+
 
 
 
