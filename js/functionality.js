@@ -43,20 +43,6 @@ function getFillerWords(n) {
     return ret;
 }
 
-function getProfession() {
-    let prof = [
-        "FRONT-END DEVELOPER",
-        "BACK-END DEVELOPER",
-        "FULL-STACK DEVELOPER",
-        "UX-UI DESIGNER",
-        "DEV OPS",
-        "JAVA DEVELOPER",
-        "PLATFORM ENGINEER",
-        "SOFTWARE ENGINEER",
-    ]
-    return prof[getRandomInteger(0, prof.length)];
-}
-
 function setSkills() {
 
     function setSkillProgression() {
@@ -69,7 +55,7 @@ function setSkills() {
     }
 
     let cantSkills = getRandomInteger(3, 11);
-    let unOrd = document.createElement("ul");
+    let unOrd = document.createElement("ol");
  
         
     for(let i = 0; i <= cantSkills; i++) {
@@ -98,7 +84,7 @@ function setExperience(section, currentYear = 2023, addDescription = false) {
         <p class="experience-date">${previousYear + " - " + currentYear}</p>
         <h3 class="experience-name">${getFillerSentence()}</h3>
         <p class="experience-institution">${getFillerSentence()}</p>`;
-        console.log(addDescription);
+        
         if(addDescription)
             item += "<p class=experience-description>" + getFillerParagraph() + "</p>";
 
@@ -113,18 +99,96 @@ function setExperience(section, currentYear = 2023, addDescription = false) {
 
 }
 
-document.getElementById("profession").innerText = getProfession();
-document.getElementById("presentation").children[1].innerText = getFillerParagraph();
+function setProfilePicture(str) {
+    let image = `<img
+    src="${str}"
+    alt="Personal photograph"
+    />`
+    document.getElementById("profile-picture").innerHTML += image;
+}
+
+function setProfileName(str) {
+    let name = `<h1 class="name">${str}</h1>`;
+    document.getElementById("person").innerHTML += name;
+}
+
+function setProfession() {
+    let prof = `<h2 class="profession" id="profession">${getProfession()}</h2>`;
+    document.getElementById("person").innerHTML += prof;
+}
+
+function setContacts(person) {
+    let contacts = `<ol>
+    <li class="contacts-item">
+      <span class="material-symbols-outlined"> phone_iphone </span
+      >${person["cell"]}
+    </li>
+    <li class="contacts-item">
+      <span class="material-symbols-outlined"> mail </span>
+      ${person["email"]}
+    </li>
+    <li class="contacts-item">
+      <span class="material-symbols-outlined"> home </span>
+      ${person["location"]["street"]["name"] + " " + person["location"]["street"]["number"] }
+    </li>
+    </ol>`
+    document.getElementById("contacts").innerHTML += contacts;
 
 
-setSkills();
-setExperience(document.getElementById("education"));
-setExperience(document.getElementById("jobs"), 2023, true);
+}
 
-console.log(capitalize("guillermo"));
-console.log(capitalize("Luis"));
-console.log(capitalize("g"));
-console.log("");
+function getProfession() {
+    let prof = [
+        "FRONT-END DEVELOPER",
+        "BACK-END DEVELOPER",
+        "FULL-STACK DEVELOPER",
+        "UX-UI DESIGNER",
+        "DEV OPS",
+        "JAVA DEVELOPER",
+        "PLATFORM ENGINEER",
+        "SOFTWARE ENGINEER",
+    ]
+    return prof[getRandomInteger(0, prof.length)];
+}
+
+function setPersonalData(url) {
+    let xhr = new XMLHttpRequest();
+    var data = 8;
+    xhr.open("GET", url );
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4 && xhr.status == 200) {
+            let person = JSON.parse(xhr.responseText);
+            person = person["results"][0];
+
+            console.log(person);
+            setProfilePicture(person["picture"]["large"]);
+            setProfileName(person["name"]["first"] + " " + person["name"]["last"]);
+            setProfession();
+            setContacts(person);
+        }
+          
+    }
+    
+    xhr.send();
+}
+
+function setResume() {
+    setPersonalData("https://randomuser.me/api/");
+    document.getElementById("presentation").children[1].innerText = getFillerParagraph();
+    setSkills();
+    setExperience(document.getElementById("education"));
+    setExperience(document.getElementById("jobs"), 2023, true);
+}
+
+setResume(true);
+
+
+
+
+
+
+
+
 
 
 
