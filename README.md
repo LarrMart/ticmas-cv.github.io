@@ -1,3 +1,7 @@
 # Proyecto Final Ticmas / Curriculum Vitae
 
-Curriculum Vitae generado con datos falsos extraídos desde una API y lorem ipsum aleatorio.
+##Curriculum Vitae con las siguientes características:
+
+- Diseño responsive
+- Datos falsos extraídos desde una API
+- LOREM IPSUM aleatorio.
