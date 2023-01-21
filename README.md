@@ -2,6 +2,6 @@
 
 ## Curriculum Vitae con las siguientes características:
 
-- Diseño responsive
-- Datos falsos extraídos desde una API
+- Diseño responsive.
+- Datos falsos extraídos desde una API.
 - LOREM IPSUM aleatorio.
